@@ -2,6 +2,7 @@ import { Header } from './components/Header'
 import './global.css'
 import styles from './App.module.css'
 import { ClipboardText, PlusCircle } from 'phosphor-react'
+import { TodoItem } from './components/TodoItem'
 
 function App() {
   return (
@@ -23,13 +24,14 @@ function App() {
           </div>
 
           <div className={styles.todoList}>
-            <div className={styles.noTodos}>
+            {/* <div className={styles.noTodos}>
               <ClipboardText size={56} weight='thin' />
               <div>
                 <h2>You don't have any tasks registered yet</h2>
                 <p>Create tasks and organize your to-do items</p>
               </div>
-            </div>
+            </div> */}
+            <TodoItem />
           </div>
         </main>
       </div>
