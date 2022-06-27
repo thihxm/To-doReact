@@ -1,21 +1,43 @@
 import { Trash } from 'phosphor-react';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, ChangeEvent } from 'react';
 import styles from './TodoItem.module.css';
 
-export function TodoItem() {
-  const [checked, setChecked] = useState(false)
+interface TodoItemProps {
+  id: string
+  text: string
+  completed: boolean
+  onCheck: (id: string) => void
+  onDelete: (id: string) => void
+}
 
-  const handleCheckTodo = (event: MouseEvent<HTMLInputElement>) => {
-    setChecked((currState) => !currState)
+export function TodoItem({
+  id,
+  text,
+  completed,
+  onCheck,
+  onDelete,
+}: TodoItemProps) {
+  const handleCheckTodo = (event: ChangeEvent<HTMLInputElement>) => {
+    onCheck(id)
+  }
+
+  const handleDeleteTodo = (event: MouseEvent<HTMLButtonElement>) => {
+    onDelete(id)
   }
 
   return (
     <div className={styles.todoItem}>
-      <input type="checkbox" checked={checked} onClick={handleCheckTodo} />
-      <p className={checked ? styles.textDisabled : ''}>
-        Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+      <input type="checkbox" checked={completed} onChange={handleCheckTodo} />
+
+      <p className={completed ? styles.textDisabled : ''}>
+        {text}
       </p>
-      <button className={styles.remove} title='Remove todo'>
+
+      <button
+        className={styles.remove} 
+        title='Remove todo'
+        onClick={handleDeleteTodo}
+      >
         <Trash size={14} weight='bold' />
       </button>
     </div>
